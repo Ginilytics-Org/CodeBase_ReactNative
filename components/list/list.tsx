@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../App'; 
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { getListItems } from '../../services/home/dashboard';
+import { ListItem } from '../../services/home/dashboard';
 
 type LoginPageProp = DrawerNavigationProp<RootStackParamList, 'Dashboard'>;
 
@@ -10,14 +12,28 @@ interface Props {
   navigation: LoginPageProp;
 }
 const List: React.FC<Props> = ({ navigation }) => {
-  const todos = ['Learn React Native', 'Build a cool app', 'Deploy app to store'];
+  const [listItems, setListItems] = useState<ListItem[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchListItems = async () => {
+      try {
+        const items = await getListItems();
+        setListItems(items);
+      } catch (error: any) {
+        setErrorMessage(error.message);
+      }
+    };
+
+    fetchListItems();
+  }, []);
 
   return (
     <View style={styles.todoContainer}>
       <Text style={styles.heading}>To Do List</Text>
-      {todos.map((todo, index) => (
+      {listItems.map((todo, index) => (
         <Text key={index} style={styles.todoItem}>
-          {index + 1}. {todo}
+          {index + 1}. {todo.title}
         </Text>
       ))}
     </View>

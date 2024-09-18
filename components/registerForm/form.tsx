@@ -7,16 +7,17 @@ import Separator from '../seperator/line';
 type FormNavigationProp = StackNavigationProp<RootStackParamList, 'RegisterPage'>;
 
 interface Props {
-    onRegister: (username: string,email:string, password: string) => void;
+    onRegister: (data: { name: string, email: string, password: string }) => void;
     navigation: FormNavigationProp; 
 }
+
 const RegisterForm: React.FC<Props> = ({ navigation, onRegister }) =>  {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleRegister = () => {
-    onRegister(username, email, password); 
+    onRegister({ name, email, password }); 
   };
 
   return (
@@ -25,14 +26,14 @@ const RegisterForm: React.FC<Props> = ({ navigation, onRegister }) =>  {
         style={styles.input}
         placeholder="Username"
         placeholderTextColor={'#cccccc'}
-        value={username}
-        onChangeText={setUsername}
+        value={name}
+        onChangeText={setName}
       />
-        <TextInput
+      <TextInput
         style={styles.input}
         placeholder="Email"
         placeholderTextColor={'#cccccc'}
-        value={username}
+        value={email}
         onChangeText={setEmail}
       />
       <TextInput
