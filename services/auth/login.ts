@@ -32,5 +32,5 @@ export const loginUser = async (loginData: LoginRequest): Promise<LoginResponse>
     } else {
       throw new Error('An unknown error occurred during login');
     }
-  }
+  } 
 };
