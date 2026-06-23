@@ -33,7 +33,7 @@ const Carousel: React.FC<Props> = ({ navigation }) =>{
   );
 };
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
   carouselContainer: {
     width: '95%',
     height: 200,
